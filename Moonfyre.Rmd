@@ -1,0 +1,66 @@
+---
+title: "Moonfyre"
+author: "Aems_of_Nyx"
+date: "2022-09-27"
+output: html_document
+---
+
+
+## Purposes
+
+Collect organize some of the R based steps and code utilized in operation moon trees.
+
+```{r}
+
+library("ape")
+library("tidytree")
+library("tidyverse")
+library("ggtree")
+library("apTreeshape")
+
+```
+
+### Visualize Tree Recipe and Resources
+
+Theres a python way to do this Dendropy maybe re-evaluate which is the better one at some point.
+
+treedata + ggtrees api see: https://yulab-smu.top/treedata-book/chapter5.html
+
+
+```{r}
+
+non_herb <- read.tree("simtree.tre")
+non_herb2 <- read.tree("gi_best.tre")
+non_herb3 <- read.tree("SRR498402_best.tre")
+
+non_herb <- as.treedata(as_tibble(non_herb))
+non_herb2 <- as.treedata(as_tibble(non_herb2))
+
+non_herb@phylo$tip.label
+non_herb2@phylo$tip.label
+
+ggtree(non_herb)+
+  geom_tiplab()+
+
+ggtree(non_herb2)+
+  geom_tiplab()
+
+```
+
+
+### Stats Viz
+
+
+```{r}
+
+dendOut <- read_delim("dendOut.tsv", delim = "\t")
+ 
+dendOut%>%
+  mutate(imbalanceDelt=sackinGen-sackinBase)%>%
+  ggplot()+
+    geom_density(aes(imbalanceDelt))
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
