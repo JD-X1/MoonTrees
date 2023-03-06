@@ -1,0 +1,20 @@
+name: EP_ML
+channels:
+  - bioconda
+  - bioconda/label/cf201901
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3
+  - numpy
+  - pandas
+  - argparse
+  - bwa-mem2
+  - samtools
+  - seqtk
+  - bcftools
+  - fastx_toolkit
+  - dendropy
+  - raxml
+  - seq-gen
+  - art
