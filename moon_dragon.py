@@ -10,15 +10,18 @@ import dendropy
 from dendropy.calculate import treecompare as tc
 from dendropy.calculate import treemeasure as tm
 
-# custom function for carrying out the RF weighted distances between two trees
 def pair_importer(tre1, tre2):
     t1 = dendropy.Tree.get(
         file=open(tre1, 'r'),
         schema="newick"
+        ### Rooting
+        rooting = "force-unrooted"
         )
     t2 = dendropy.Tree.get(
         file=open(tre2, 'r'),
         schema="newick",
+        ### Rooting
+        rooting = "force-unrooted"
         taxon_namespace=t1.taxon_namespace
         )
     t1.encode_bipartitions()
