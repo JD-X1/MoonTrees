@@ -33,13 +33,19 @@ def pair_importer(tre1, tre2):
     t2.encode_bipartitions()
     return tns, t1, t2
 
-def reroot_pair(tns, t1, t2, root_taxa):
-	# rerooting at input mrca edge object need to standardize namespace prior to this
-	mrca1 = t1.mrca(taxon_labels=root_taxa)
-	mrca2 = t2.mrca(taxon_labels=root_taxa)
-	t1.reroot_at_node(mrca1, update_bipartitions=True)
-	t2.reroot_at_node(mrca2, update_bipartitions=True)
-	return tns,t1,t2
+def reroot_by_multiTaxa(tns, t1, root_taxa):
+        """Function to make sure two trees have same outgroup.
+        Args:
+        tns = dendropy taxon_namespace for both trees
+        t1 = dendropy tree object
+        root_taxa = list of taxon names
+        """
+        # rerooting at input mrca edge object need to standardize namespace prior to this
+        mrca1 = t1.mrca(taxon_labels=root_taxa)
+        assert mrca1
+        t1.reroot_at_node(mrca1, update_bipartitions=False)
+        return tns,t1,t2
+
 
 def standardize_namespace(tns, t1, t2):
     """requires two trees with a common taxon namespace"""
