@@ -24,11 +24,13 @@ class TestRootPair(unittest.TestCase):
 			file=open(tre, 'r'),
 			schema="newick",
 			taxon_namespace=tns,
-			preserve_underscores=True
+			preserve_underscores=True,
+			rooting="force-unrooted"
 			)
 		tree.prune_taxa_with_labels(["ref_SRR498444"])
 		root_taxa = ["SRR498373","SRR500494","SRR498369","SRR500493"]## Multiple outgroup taxa
-		t_mrca = tree.mrca(taxon_labels=root_taxa)
+		#tree.to_outgroup_position(root_taxa, update_bipartitions=False)
+		t_mrca = tree.find_node_with_taxon_label(root_taxa )#tree.mrca(taxon_labels=root_taxa)
 		print(t_mrca)
 		assert t_mrca
 		ori_leaves = [leaf.taxon.label for leaf in t_mrca.leaf_iter()]
